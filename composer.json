@@ -1,0 +1,32 @@
+{
+    "name": "apility/visma-business-connect",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Olav Øyen",
+            "email": "olav@apility.no"
+        }
+    ],
+    "require": {
+        "netflex/api": "^3.0"
+    },
+    "require-dev": {
+        "illuminate/support": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Apility\\Visma\\":"src"
+        }
+    },
+    "extra": {
+        "laravel": {
+          "providers": [
+            "Apility\\Visma\\Providers\\VismaBusinessServiceProvider"
+          ],
+          "aliases": {
+            "VismaClient": "Apility\\Visma\\Facades\\VismaClient"
+          }
+        }
+    }
+}
