@@ -13,11 +13,8 @@ class Article
      *
      * @var array
      */
-    protected $ObjectChildren = [
+    protected static $ObjectChildren = [
         'Description' => 'string',
-        'Information1' => 'string',
-        'TaxAndAccountingGroup' => 'string',
-        'Information5' => 'int'
     ];
 
     /**
@@ -25,32 +22,32 @@ class Article
      *
      * @var array
      */
-    protected $HeaderChildren = [];
+    protected static $HeaderChildren = [];
 
     /**
      * Default xml line children
      *
      * @var array
      */
-    protected $LineChildren = [];
+    protected static $LineChildren = [];
 
     /**
      * Definitions for the XML structure
      *
      * @var string
      */
-    protected $primaryKey = 'ProductNo';
-    protected $primaryKeyPlacement = 'object';
-    protected $xmlElement = 'Articleinfo';
-    protected $xmlObject = 'Article';
-    protected $xmlObjectWrapper = false;
-    protected $xmlHeader = false;
-    protected $xmlLineWrapper = false;
-    protected $xmlLine = false;
-    protected $endpoint = 'Article.svc';
-    protected $listUrl = 'getArticles';
-    protected $getUrl = 'getArticle';
-    protected $postUrl = 'postArticle';
-    protected $putUrl = 'putArticle';
+    protected static $primaryKey = 'ProductNo';
+    protected static $primaryKeyPlacement = 'object';
+    protected static $xmlElement = 'Articleinfo';
+    protected static $xmlObject = 'Article';
+    protected static $xmlObjectWrapper = false;
+    protected static $xmlHeader = false;
+    protected static $xmlLineWrapper = false;
+    protected static $xmlLine = false;
+    protected static $endpoint = 'Article.svc';
+    protected static $listUrl = 'getArticles';
+    protected static $getUrl = 'getArticle';
+    protected static $postUrl = 'postArticle';
+    protected static $putUrl = 'putArticle';
 
 }
