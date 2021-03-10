@@ -12,19 +12,8 @@ class Customer
      *
      * @var array
      */
-    protected $ObjectChildren = [
-        'AssociateNo' => 'int',
+    protected static $ObjectChildren = [
         'Name' => 'string',
-        'ShortName' => 'string',
-        'CompanyNo' => 'string',
-        'AddressLine1' => 'string',
-        'AddressLine2' => 'string',
-        'AddressLine3' => 'string',
-        'AddressLine4' => 'string',
-        'PostCode' => 'string',
-        'PostalArea' => 'string',
-        'Information1' => 'int',
-        'Group5' => 'int'
     ];
 
     /**
@@ -32,32 +21,32 @@ class Customer
      *
      * @var array
      */
-    protected $HeaderChildren = [];
+    protected static $HeaderChildren = [];
 
     /**
      * Default xml line children
      *
      * @var array
      */
-    protected $LineChildren = [];
+    protected static $LineChildren = [];
 
     /**
      * Definitions for the XML structure
      *
      * @var string
      */
-    protected $primaryKey = 'CustomerNo';
-    protected $primaryKeyPlacement = 'object';
-    protected $xmlElement = 'Customerinfo';
-    protected $xmlObject = 'Customer';
-    protected $xmlObjectWrapper = false;
-    protected $xmlHeader = false;
-    protected $xmlLineWrapper = false;
-    protected $xmlLine = false;
-    protected $endpoint = 'Customer.svc';
-    protected $listUrl = 'getCustomers';
-    protected $getUrl = 'getCustomer';
-    protected $postUrl = 'postcustomer';
-    protected $putUrl = 'putCustomer';
+    protected static $primaryKey = 'CustomerNo';
+    protected static $primaryKeyPlacement = 'object';
+    protected static $xmlElement = 'Customerinfo';
+    protected static $xmlObject = 'Customer';
+    protected static $xmlObjectWrapper = false;
+    protected static $xmlHeader = false;
+    protected static $xmlLineWrapper = false;
+    protected static $xmlLine = false;
+    protected static $endpoint = 'Customer.svc';
+    protected static $listUrl = 'getCustomers';
+    protected static $getUrl = 'getCustomer';
+    protected static $postUrl = 'postcustomer';
+    protected static $putUrl = 'putCustomer';
 
 }

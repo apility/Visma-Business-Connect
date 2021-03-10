@@ -2,7 +2,8 @@
 
 namespace Apility\Visma;
 
-class CustomerTransaction
+
+class ArticlePrice
 {
 
     use Traits\VismaDefaultsTrait;
@@ -14,13 +15,8 @@ class CustomerTransaction
      */
     protected static $ObjectChildren = [
         'CustomerNo' => 'int',
-        'InvoiceNo' => 'int',
-        'AmountInCurrency' => 'float',
-        'OutstandingAmountInCurrency' => 'float',
-        'VoucherNo' => 'int',
-        'VoucherDate' => 'string',
-        'ChangedDate' => 'string',
-        'DueDate' => 'string'
+        'SalesPrice1' => 'float',
+        'SuggestedPriceInCurrency' => 'float',
     ];
 
     /**
@@ -42,17 +38,17 @@ class CustomerTransaction
      *
      * @var string
      */
-    protected static $primaryKey = 'InvoiceNo';
+    protected static $primaryKey = 'ProductNo';
     protected static $primaryKeyPlacement = 'object';
-    protected static $xmlElement = 'CustomerTransactionInfo';
-    protected static $xmlObjectWrapper = 'CustomerTransactions';
-    protected static $xmlObject = 'CustomerTransaction';
+    protected static $xmlElement = 'ArticlePriceinfo';
+    protected static $xmlObject = 'ArticlePrice';
+    protected static $xmlObjectWrapper = false;
     protected static $xmlHeader = false;
     protected static $xmlLineWrapper = false;
     protected static $xmlLine = false;
-    protected static $endpoint = 'Extension.svc';
-    protected static $listUrl = 'getTableValue';
-    protected static $getUrl = false;
+    protected static $endpoint = 'Article.svc';
+    protected static $listUrl = 'getArticlePrices';
+    protected static $getUrl = 'getArticlePrice';
     protected static $postUrl = false;
     protected static $putUrl = false;
 

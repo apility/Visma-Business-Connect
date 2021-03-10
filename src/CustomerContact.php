@@ -2,8 +2,7 @@
 
 namespace Apility\Visma;
 
-
-class Article
+class CustomerContact
 {
 
     use Traits\VismaDefaultsTrait;
@@ -14,7 +13,7 @@ class Article
      * @var array
      */
     protected static $ObjectChildren = [
-        'Description' => 'string',
+        'Name' => 'string',
     ];
 
     /**
@@ -36,18 +35,18 @@ class Article
      *
      * @var string
      */
-    protected static $primaryKey = 'ProductNo';
+    protected static $primaryKey = 'AssociateNo';
     protected static $primaryKeyPlacement = 'object';
-    protected static $xmlElement = 'Articleinfo';
-    protected static $xmlObject = 'Article';
+    protected static $xmlElement = 'Customerinfo';
+    protected static $xmlObject = 'CustomerContact';
     protected static $xmlObjectWrapper = false;
     protected static $xmlHeader = false;
     protected static $xmlLineWrapper = false;
     protected static $xmlLine = false;
-    protected static $endpoint = 'Article.svc';
-    protected static $listUrl = 'getArticles';
-    protected static $getUrl = 'getArticle';
-    protected static $postUrl = 'postArticle';
-    protected static $putUrl = 'putArticle';
+    protected static $endpoint = 'Customer.svc';
+    protected static $listUrl = 'getCustomerContacts';
+    protected static $getUrl = 'getCustomerContact';
+    protected static $postUrl = 'postCustomerContact';
+    protected static $putUrl = 'PutCustomerContact';
 
 }

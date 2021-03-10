@@ -12,14 +12,14 @@ class Invoice
      *
      * @var array
      */
-    protected $ObjectChildren = [];
+    protected static $ObjectChildren = [];
 
     /**
      * Default xml head children
      *
      * @var array
      */
-    protected $HeaderChildren = [
+    protected static $HeaderChildren = [
         'InvoiceDate' => 'string',
         'CustomerNo' => 'int',
         'OrderNo' => 'int',
@@ -35,25 +35,25 @@ class Invoice
      *
      * @var array
      */
-    protected $LineChildren = [];
+    protected static $LineChildren = [];
 
     /**
      * Definitions for the XML structure
      *
      * @var string
      */
-    protected $primaryKey = 'InvoiceNo';
-    protected $primaryKeyPlacement = 'object';
-    protected $xmlElement = 'Invoiceinfo';
-    protected $xmlObject = 'InvoiceLine';
-    protected $xmlObjectWrapper = 'Invoice';
-    protected $xmlHeader = false;
-    protected $xmlLineWrapper = false;
-    protected $xmlLine = false;
-    protected $endpoint = 'Accounting.svc';
-    protected $listUrl = 'getInvoices';
-    protected $getUrl = false;
-    protected $postUrl = false;
-    protected $putUrl = false;
+    protected static $primaryKey = 'InvoiceNo';
+    protected static $primaryKeyPlacement = 'object';
+    protected static $xmlElement = 'Invoiceinfo';
+    protected static $xmlObject = 'InvoiceLine';
+    protected static $xmlObjectWrapper = 'Invoice';
+    protected static $xmlHeader = false;
+    protected static $xmlLineWrapper = false;
+    protected static $xmlLine = false;
+    protected static $endpoint = 'Accounting.svc';
+    protected static $listUrl = 'getInvoices';
+    protected static $getUrl = false;
+    protected static $postUrl = false;
+    protected static $putUrl = false;
 
 }

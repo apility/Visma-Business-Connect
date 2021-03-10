@@ -12,11 +12,10 @@ class Project
      *
      * @var array
      */
-    protected $ObjectChildren = [
+    protected static $ObjectChildren = [
         'CostUnitNumber' => 'int',
         'Name' => 'string',
-        'CustomerNo' => 'int',
-        'Status' => 'string'
+        'CustomerNo' => 'int'
     ];
 
     /**
@@ -24,32 +23,32 @@ class Project
      *
      * @var array
      */
-    protected $HeaderChildren = [];
+    protected static $HeaderChildren = [];
 
     /**
      * Default xml line children
      *
      * @var array
      */
-    protected $LineChildren = [];
+    protected static $LineChildren = [];
 
     /**
      * Definitions for the XML structure
      *
      * @var string
      */
-    protected $primaryKey = 'OrgUnit2';
-    protected $primaryKeyPlacement = 'object';
-    protected $xmlElement = 'CostUnitinfo';
-    protected $xmlObject = 'CostUnit';
-    protected $xmlObjectWrapper = false;
-    protected $xmlHeader = false;
-    protected $xmlLineWrapper = false;
-    protected $xmlLine = false;
-    protected $endpoint = 'Accounting.svc';
-    protected $listUrl = 'getCostUnits';
-    protected $getUrl = 'getCostUnit';
-    protected $postUrl = 'postCostUnit';
-    protected $putUrl = 'putCostUnit';
+    protected static $primaryKey = 'OrgUnit2';
+    protected static $primaryKeyPlacement = 'object';
+    protected static $xmlElement = 'CostUnitinfo';
+    protected static $xmlObject = 'CostUnit';
+    protected static $xmlObjectWrapper = false;
+    protected static $xmlHeader = false;
+    protected static $xmlLineWrapper = false;
+    protected static $xmlLine = false;
+    protected static $endpoint = 'Accounting.svc';
+    protected static $listUrl = 'getCostUnits';
+    protected static $getUrl = 'getCostUnit';
+    protected static $postUrl = 'postCostUnit';
+    protected static $putUrl = 'putCostUnit';
 
 }
