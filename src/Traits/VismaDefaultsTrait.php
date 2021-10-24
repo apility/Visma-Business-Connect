@@ -359,6 +359,10 @@ trait VismaDefaultsTrait {
         if(static::$xmlLineWrapper && static::$xmlLine && count(static::$LineChildren)) {
             
             $object->{static::$xmlLineWrapper} = $object->{static::$xmlLineWrapper}->{static::$xmlLine};
+            if(!is_array($object->{static::$xmlLineWrapper})) {
+                $object->{static::$xmlLineWrapper} = [$object->{static::$xmlLineWrapper}];
+            }
+            
             foreach($object->{static::$xmlLineWrapper} as $no => $line) {
 
                 foreach($line as $key => $value) {
