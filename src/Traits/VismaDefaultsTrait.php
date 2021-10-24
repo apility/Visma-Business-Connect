@@ -115,6 +115,14 @@ trait VismaDefaultsTrait {
                 continue;
             } 
 
+            if($key === 'WareHouseNo') {
+                /**
+                 * WareHouseNo has to be 1.
+                 */
+                $object->addChild('WareHouseNo', 1);    
+                continue;
+            } 
+
             $object->addChild($key);
 
         }
