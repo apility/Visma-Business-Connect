@@ -82,11 +82,11 @@ trait VismaDefaultsTrait {
     /**
      * Get single object from Visma
      *
-     * @param int $primaryKey
+     * @param string $primaryKey
      * @param bool $debug
      * @return object
      */
-    public static function get(int $primaryKey, $debug = false) {
+    public static function get(string $primaryKey, $debug = false) {
 
         if(!static::$getUrl) {
             throw new Exception("Method not implemented", 500);
@@ -232,13 +232,13 @@ trait VismaDefaultsTrait {
     /**
      * Update object from Visma
      *
-     * @param int $primaryKey
+     * @param string $primaryKey
      * @param array $header
      * @param array $lines
      * @param bool $debug
      * @return object
      */
-    public static function update(int $primaryKey, array $header, array $lines, $debug = false) {
+    public static function update(string $primaryKey, array $header, array $lines, $debug = false) {
 
         if(!static::$putUrl) {
             throw new Exception("Method not implemented", 500);
