@@ -334,7 +334,7 @@ trait VismaDefaultsTrait {
                 
                 $type = static::$ObjectChildren[$key] ?? 'string';
                 if($key === static::$primaryKey) {
-                    $type = 'int';
+                    $type = static::$primaryKeyType ?? 'int';
                 }
 
                 if(is_object($value)) {
@@ -352,7 +352,7 @@ trait VismaDefaultsTrait {
                 
                 $type = static::$HeaderChildren[$key] ?? 'string';
                 if($key === static::$primaryKey) {
-                    $type = 'int';
+                    $type = static::$primaryKeyType ?? 'int';
                 }
 
                 if(is_object($value)) {

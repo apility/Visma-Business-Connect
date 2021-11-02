@@ -38,6 +38,7 @@ class Article
      */
     protected static $primaryKey = 'ProductNo';
     protected static $primaryKeyPlacement = 'object';
+    protected static $primaryKeyType = 'string';
     protected static $xmlElement = 'Articleinfo';
     protected static $xmlObject = 'Article';
     protected static $xmlObjectWrapper = false;
