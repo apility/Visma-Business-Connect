@@ -86,7 +86,7 @@ trait VismaDefaultsTrait {
      * @param bool $debug
      * @return object
      */
-    public static function get(string $primaryKey, $debug = false) {
+    public static function get(string $primaryKey, $returnList = false, $debug = false) {
 
         if(!static::$getUrl) {
             throw new Exception("Method not implemented", 500);
@@ -155,6 +155,10 @@ trait VismaDefaultsTrait {
         if($debug) {
             return VismaClient::debug($payload);
         }
+	    
+	if($returnList) {
+	    return static::convertList(VismaClient::post(static::$endpoint . '/' . static::$getUrl , $payload));
+	}
 
         return static::convertSingle(VismaClient::post(static::$endpoint . '/' . static::$getUrl , $payload));
 

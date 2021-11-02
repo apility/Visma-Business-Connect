@@ -41,6 +41,7 @@ class StockQuantity
      */
     protected static $primaryKey = 'ProductNo';
     protected static $primaryKeyPlacement = 'object';
+    protected static $primaryKeyType = 'string';
     protected static $xmlElement = 'StockQuantityinfo';
     protected static $xmlObject = 'StockQuantity';
     protected static $xmlObjectWrapper = false;

@@ -40,6 +40,7 @@ class ArticlePrice
      */
     protected static $primaryKey = 'ProductNo';
     protected static $primaryKeyPlacement = 'object';
+    protected static $primaryKeyType = 'string';
     protected static $xmlElement = 'ArticlePriceinfo';
     protected static $xmlObject = 'ArticlePrice';
     protected static $xmlObjectWrapper = false;
