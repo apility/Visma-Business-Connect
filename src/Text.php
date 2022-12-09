@@ -2,7 +2,7 @@
 
 namespace Apility\Visma;
 
-class Project
+class Text
 {
 
     use Traits\VismaDefaultsTrait;
@@ -13,9 +13,7 @@ class Project
      * @var array
      */
     protected static $ObjectChildren = [
-        'CostUnitNumber' => 'int',
-        'Name' => 'string',
-        'CustomerNo' => 'int'
+        'Description' => 'string',
     ];
 
     /**
@@ -37,19 +35,18 @@ class Project
      *
      * @var string
      */
-    protected static $primaryKey = 'OrgUnit2';
+    protected static $primaryKey = 'TextNo';
     protected static $primaryKeyPlacement = 'object';
-    protected static $xmlElement = 'CostUnitinfo';
-    protected static $xmlObject = 'CostUnit';
+    protected static $xmlElement = 'Textinfo';
+    protected static $xmlObject = 'Text';
     protected static $xmlObjectWrapper = false;
     protected static $xmlHeader = false;
     protected static $xmlLineWrapper = false;
     protected static $xmlLine = false;
-    protected static $endpoint = 'Accounting.svc';
-    protected static $listUrl = 'getCostUnits';
-    protected static $getUrl = 'getCostUnit';
-    protected static $postUrl = 'postCostUnit';
-    protected static $putUrl = 'putCostUnit';
-    protected static $costUnitNumber = '2';
+    protected static $endpoint = 'Extension.svc';
+    protected static $listUrl = 'Text';
+    protected static $getUrl = false;
+    protected static $postUrl = false;
+    protected static $putUrl = false;
 
 }
