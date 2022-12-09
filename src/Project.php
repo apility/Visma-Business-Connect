@@ -50,5 +50,6 @@ class Project
     protected static $getUrl = 'getCostUnit';
     protected static $postUrl = 'postCostUnit';
     protected static $putUrl = 'putCostUnit';
+    protected static $costUnitNumber = '2';
 
 }

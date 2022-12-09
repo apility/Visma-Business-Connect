@@ -107,11 +107,11 @@ trait VismaDefaultsTrait {
 
         foreach(array_keys(static::$ObjectChildren) as $key) {
             
-            if($key === 'CostUnitNumber') {
+            if(isset(static::$costUnitNumber) && static::$costUnitNumber) {
                 /**
                  * For CostUnits (projects) a default value has to be set.
                  */
-                $object->addChild('CostUnitNumber', 2);    
+                $object->addChild('CostUnitNumber', static::$costUnitNumber);    
                 continue;
             } 
 
