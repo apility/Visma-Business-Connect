@@ -22,26 +22,32 @@ trait VismaDefaultsTrait {
         }
 
         $payload = new SimpleXMLElement('<' . static::$xmlElement . '></' . static::$xmlElement . '>');
-        
+
         if(static::$xmlObjectWrapper) {
             $wrapper = $payload->addChild(static::$xmlObjectWrapper);
             $object = $wrapper->addChild(static::$xmlObject);
         } else {
             $object = $payload->addChild(static::$xmlObject);
         }
-        
+
         if(static::$primaryKeyPlacement === 'object') {
             $object->addChild(static::$primaryKey);
         }
 
         foreach(array_keys(static::$ObjectChildren) as $key) {
-            $object->addChild($key);
+            if($key === 'CostUnitNumber' && static::$costUnitNumber) {
+                $object->addChild('CostUnitNumber', static::$costUnitNumber);
+            } else {
+                $object->addChild($key);
+            }
         }
 
+
+
         if(static::$xmlHeader && count(static::$HeaderChildren)) {
-            
+
             $header = $object->addChild(static::$xmlHeader);
-            
+
             if(static::$primaryKeyPlacement === 'header') {
                 $header->addChild(static::$primaryKey);
             }
@@ -51,12 +57,12 @@ trait VismaDefaultsTrait {
             }
 
         }
-        
+
         if(static::$xmlLineWrapper && static::$xmlLine) {
 
             $lines = $object->addChild(static::$xmlLineWrapper);
             $line = $lines->addChild(static::$xmlLine);
-            
+
             foreach(array_keys(static::$LineChildren) as $key) {
                 $line->addChild($key);
             }
@@ -78,7 +84,7 @@ trait VismaDefaultsTrait {
         return static::convertList(VismaClient::post(static::$endpoint . '/' . static::$listUrl , $payload));
 
     }
-    
+
     /**
      * Get single object from Visma
      *
@@ -91,46 +97,46 @@ trait VismaDefaultsTrait {
         if(!static::$getUrl) {
             throw new Exception("Method not implemented", 500);
         }
-        
+
         $payload = new SimpleXMLElement('<' . static::$xmlElement . '></' . static::$xmlElement . '>');
-        
+
         if(static::$xmlObjectWrapper) {
             $wrapper = $payload->addChild(static::$xmlObjectWrapper);
             $object = $wrapper->addChild(static::$xmlObject);
         } else {
             $object = $payload->addChild(static::$xmlObject);
         }
-        
+
         if(static::$primaryKeyPlacement === 'object') {
             $object->addChild(static::$primaryKey, $primaryKey);
         }
 
         foreach(array_keys(static::$ObjectChildren) as $key) {
-            
+
             if(isset(static::$costUnitNumber) && static::$costUnitNumber) {
                 /**
                  * For CostUnits (projects) a default value has to be set.
                  */
-                $object->addChild('CostUnitNumber', static::$costUnitNumber);    
+                $object->addChild('CostUnitNumber', static::$costUnitNumber);
                 continue;
-            } 
+            }
 
             if($key === 'WareHouseNo') {
                 /**
                  * WareHouseNo has to be 1.
                  */
-                $object->addChild('WareHouseNo', 1);    
+                $object->addChild('WareHouseNo', 1);
                 continue;
-            } 
+            }
 
             $object->addChild($key);
 
         }
 
         if(static::$xmlHeader && count(static::$HeaderChildren)) {
-            
+
             $header = $object->addChild(static::$xmlHeader);
-            
+
             if(static::$primaryKeyPlacement === 'header') {
                 $header->addChild(static::$primaryKey, $primaryKey);
             }
@@ -140,12 +146,12 @@ trait VismaDefaultsTrait {
             }
 
         }
-        
+
         if(static::$xmlLineWrapper && static::$xmlLine) {
 
             $lines = $object->addChild(static::$xmlLineWrapper);
             $line = $lines->addChild(static::$xmlLine);
-            
+
             foreach(array_keys(static::$LineChildren) as $key) {
                 $line->addChild($key);
             }
@@ -155,7 +161,7 @@ trait VismaDefaultsTrait {
         if($debug) {
             return VismaClient::debug($payload);
         }
-	    
+
 	if($returnList) {
 	    return static::convertList(VismaClient::post(static::$endpoint . '/' . static::$getUrl , $payload));
 	}
@@ -166,7 +172,7 @@ trait VismaDefaultsTrait {
 
     /**
      * Create new object in visma
-     * 
+     *
      * @param array $objectItems
      * @param array $headerItems
      * @param array $lineItems
@@ -179,9 +185,9 @@ trait VismaDefaultsTrait {
         if(!static::$postUrl) {
             throw new Exception("Method not implemented", 500);
         }
-        
+
         $payload = new SimpleXMLElement('<' . static::$xmlElement . '></' . static::$xmlElement . '>');
-        
+
         if(static::$xmlObjectWrapper) {
             $wrapper = $payload->addChild(static::$xmlObjectWrapper);
             $object = $wrapper->addChild(static::$xmlObject);
@@ -198,9 +204,9 @@ trait VismaDefaultsTrait {
         }
 
         if(static::$xmlHeader && count(static::$HeaderChildren)) {
-            
+
             $header = $object->addChild(static::$xmlHeader);
-    
+
             if(static::$primaryKeyPlacement === 'header' &&  !in_array(static::$primaryKey, $headerItems)) {
                 $header->addChild(static::$primaryKey);
             }
@@ -218,7 +224,7 @@ trait VismaDefaultsTrait {
                 $line = $lines->addChild(static::$xmlLine);
                 foreach($lineItem as $key => $value) {
                     $line->addChild($key, e($value));
-                } 
+                }
             }
 
         }
@@ -256,27 +262,27 @@ trait VismaDefaultsTrait {
             throw new Exception("Method not implemented", 500);
         }
         $payload = new SimpleXMLElement('<' . static::$xmlElement . '></' . static::$xmlElement . '>');
-        
+
         if(static::$xmlObjectWrapper) {
             $wrapper = $payload->addChild(static::$xmlObjectWrapper);
             $object = $wrapper->addChild(static::$xmlObject);
         } else {
             $object = $payload->addChild(static::$xmlObject);
         }
-        
+
         $header = $object->addChild(static::$xmlHeader);
 		$header->addChild(static::$primaryKey, $primaryKey);
-        
+
         foreach($header as $key => $value) {
             $header->addChild($key, $value);
         }
-        
+
         $lines = $object->addChild(static::$xmlLineWrapper);
         foreach($lines as $line) {
             $line = $lines->addChild(static::$xmlLine);
             foreach($line as $key => $value) {
                 $line->addChild($key, $value);
-            } 
+            }
         }
 
         if($debug) {
@@ -295,7 +301,7 @@ trait VismaDefaultsTrait {
      */
     private static function convertList(SimpleXMLElement $xml) {
 
-        $collection = collect([]); 
+        $collection = collect([]);
         if(static::$xmlObjectWrapper) {
             foreach($xml->{static::$xmlObjectWrapper}->{static::$xmlObject} as $item) {
                 $collection->add(static::convert(json_decode(json_encode((array) $item))));
@@ -329,13 +335,13 @@ trait VismaDefaultsTrait {
     private static function convert(object $object) {
 
         if(static::$xmlObject && count(static::$ObjectChildren)) {
-            
+
             foreach($object as $key => $value) {
-                
+
                 if((static::$xmlHeader && $key === static::$xmlHeader) || (static::$xmlLineWrapper && $key === static::$xmlLineWrapper)) {
                     continue;
                 }
-                
+
                 $type = static::$ObjectChildren[$key] ?? 'string';
                 if($key === static::$primaryKey) {
                     $type = static::$primaryKeyType ?? 'int';
@@ -353,7 +359,7 @@ trait VismaDefaultsTrait {
         if(static::$xmlHeader && count(static::$HeaderChildren)) {
 
             foreach($object->{static::$xmlHeader} as $key => $value) {
-                
+
                 $type = static::$HeaderChildren[$key] ?? 'string';
                 if($key === static::$primaryKey) {
                     $type = static::$primaryKeyType ?? 'int';
@@ -369,12 +375,12 @@ trait VismaDefaultsTrait {
         }
 
         if(static::$xmlLineWrapper && static::$xmlLine && count(static::$LineChildren)) {
-            
+
             $object->{static::$xmlLineWrapper} = $object->{static::$xmlLineWrapper}->{static::$xmlLine};
             if(!is_array($object->{static::$xmlLineWrapper})) {
                 $object->{static::$xmlLineWrapper} = [$object->{static::$xmlLineWrapper}];
             }
-            
+
             foreach($object->{static::$xmlLineWrapper} as $no => $line) {
 
                 foreach($line as $key => $value) {
@@ -392,7 +398,7 @@ trait VismaDefaultsTrait {
             }
 
         }
-        
+
         return (object) $object;
 
     }
