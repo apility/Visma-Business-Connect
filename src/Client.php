@@ -1,24 +1,24 @@
 <?php
 namespace Apility\Visma;
 
+use GuzzleHttp\Exception\GuzzleException;
 use SimpleXMLElement;
 use GuzzleHttp\Client as Guzzle;
 use Exception;
-use Illuminate\Support\Facades\Config;
 
 class Client {
 
-  private $guid;
-  private $client;
-  private $clientID;
+    private string $guid;
+    private Guzzle $client;
+    private string $clientID;
 
-  /**
-   * Instantiates a new Visma client
-   * @param mixed $clientID
-   * @param string $guid
-   * @param string $baseURL
-   */
-	function __construct ($url, $token, $clientId) {
+    /**
+     * Instantiates a new Visma client
+     * @param $url
+     * @param string $token
+     * @param string $clientId
+     */
+	function __construct ($url, string $token, string $clientId) {
 
 		$this->client = new Guzzle([
 			'base_uri' => $url
@@ -29,18 +29,19 @@ class Client {
 
 	}
 
-	  /**
-	   * Submits data to Visma
-	   * @param string $url
-	   * @param SimpleXMLElement $payload
-	   * @return SimpleXMLElement Response
-	   */
-    public function post ($url, $payload) {
-        
+    /**
+     * Submits data to Visma
+     * @param string $url
+     * @param SimpleXMLElement $payload
+     * @return SimpleXMLElement Response
+     * @throws GuzzleException|Exception
+     */
+    public function post (string $url, SimpleXMLElement $payload): SimpleXMLElement {
+
         $header = $payload->addChild('Header');
 	    $header->addChild('ClientId', $this->clientID);
 	    $header->addChild('Guid', $this->guid);
-		
+
 		$status = $payload->addChild('Status');
 	    $status->addChild('MessageId');
 	    $status->addChild('Message');
@@ -69,19 +70,23 @@ class Client {
 	      }
 
 		  throw new Exception($message);
-		  
+
 	    }
 
 		return $response;
-		
+
 	}
 
-	public function debug($payload) {
-		
+  /**
+   * @param SimpleXMLElement $payload
+   * @return string
+   */
+	public function debug(SimpleXMLElement $payload): string {
+
 		$header = $payload->addChild('Header');
 	    $header->addChild('ClientId', $this->clientID);
 	    $header->addChild('Guid', $this->guid);
-		
+
 		$status = $payload->addChild('Status');
 	    $status->addChild('MessageId');
 	    $status->addChild('Message');

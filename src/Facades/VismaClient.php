@@ -3,7 +3,15 @@
 namespace Apility\Visma\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use RuntimeException;
+use SimpleXMLElement;
 
+/**
+ * @method static SimpleXMLElement post (string $url, SimpleXMLElement $payload)
+ * @method static string debug (SimpleXMLElement $payload)
+ *
+ * @see \Apility\Visma\Client
+ */
 class VismaClient extends Facade
 {
     /**
@@ -11,7 +19,7 @@ class VismaClient extends Facade
      *
      * @return string
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     protected static function getFacadeAccessor()
     {

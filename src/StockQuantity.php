@@ -49,7 +49,7 @@ class StockQuantity
     protected static $xmlLineWrapper = false;
     protected static $xmlLine = false;
     protected static $endpoint = 'Article.svc';
-    protected static $listUrl = false;
+    protected static $listUrl = 'getStockQuantities';
     protected static $getUrl = 'getStockQuantity';
     protected static $postUrl = false;
     protected static $putUrl = false;
