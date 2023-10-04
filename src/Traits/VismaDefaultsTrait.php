@@ -2,20 +2,21 @@
 
 namespace Apility\Visma\Traits;
 
+use Illuminate\Support\Collection;
 use SimpleXMLElement;
 use Apility\Visma\Facades\VismaClient;
 use Exception;
 
 trait VismaDefaultsTrait {
-
     /**
      * List objects from Visma
      *
-     * @param object $filters
+     * @param array $filters
      * @param bool $debug
-     * @return object
+     * @return Collection|string
+     * @throws Exception
      */
-    public static function list(array $filters, $debug = false) {
+    public static function list(array $filters, bool $debug = false) {
 
         if(!static::$listUrl) {
             throw new Exception("Method not implemented", 500);
@@ -41,8 +42,6 @@ trait VismaDefaultsTrait {
                 $object->addChild($key);
             }
         }
-
-
 
         if(static::$xmlHeader && count(static::$HeaderChildren)) {
 
@@ -89,10 +88,12 @@ trait VismaDefaultsTrait {
      * Get single object from Visma
      *
      * @param string $primaryKey
+     * @param bool $returnList
      * @param bool $debug
-     * @return object
+     * @return object|string
+     * @throws Exception
      */
-    public static function get(string $primaryKey, $returnList = false, $debug = false) {
+    public static function get(string $primaryKey, bool $returnList = false, bool $debug = false) {
 
         if(!static::$getUrl) {
             throw new Exception("Method not implemented", 500);
@@ -162,7 +163,7 @@ trait VismaDefaultsTrait {
             return VismaClient::debug($payload);
         }
 
-	if($returnList) {
+	if ($returnList) {
 	    return static::convertList(VismaClient::post(static::$endpoint . '/' . static::$getUrl , $payload));
 	}
 
@@ -178,10 +179,16 @@ trait VismaDefaultsTrait {
      * @param array $lineItems
      * @param array $filters
      * @param bool $debug
-     * @return object
+     * @return object|string
+     * @throws Exception
      */
-    public static function create(array $objectItems = [], array $headerItems = [], array $lineItems = [], array $filters = [], $debug = false) {
-
+    public static function create(
+        array $objectItems = [],
+        array $headerItems = [],
+        array $lineItems = [],
+        array $filters = [],
+        bool $debug = false
+    ) {
         if(!static::$postUrl) {
             throw new Exception("Method not implemented", 500);
         }
@@ -251,13 +258,14 @@ trait VismaDefaultsTrait {
      * Update object from Visma
      *
      * @param string $primaryKey
-     * @param array $header
-     * @param array $lines
+     * @param array $_1 Unused parameter
+     * @param array $_2 Unused parameter
      * @param bool $debug
-     * @return object
+     * @return object|string
+     * @throws Exception
      */
-    public static function update(string $primaryKey, array $header, array $lines, $debug = false) {
-
+    public static function update(string $primaryKey, array $_1, array $_2, bool $debug = false)
+    {
         if(!static::$putUrl) {
             throw new Exception("Method not implemented", 500);
         }
@@ -297,9 +305,10 @@ trait VismaDefaultsTrait {
      * Convert array of xmlObjects to collection of items
      *
      * @param SimpleXMLElement $xml
-     * @return object
+     * @return Collection
      */
-    private static function convertList(SimpleXMLElement $xml) {
+    private static function convertList(SimpleXMLElement $xml): Collection
+    {
 
         $collection = collect([]);
         if(static::$xmlObjectWrapper) {
@@ -321,19 +330,19 @@ trait VismaDefaultsTrait {
      * @param SimpleXMLElement $xml
      * @return object
      */
-    private static function convertSingle(SimpleXMLElement $xml) {
+    private static function convertSingle(SimpleXMLElement $xml): object
+    {
         return static::convert(json_decode(json_encode((array) $xml->{static::$xmlObject})));
     }
 
     /**
      * Convert xmlObject item to item
      *
-     * @param SimpleXmlElement $xml
-     * @param bool $single
+     * @param object $object
      * @return object
      */
-    private static function convert(object $object) {
-
+    private static function convert(object $object): object
+    {
         if(static::$xmlObject && count(static::$ObjectChildren)) {
 
             foreach($object as $key => $value) {
@@ -399,7 +408,7 @@ trait VismaDefaultsTrait {
 
         }
 
-        return (object) $object;
+        return $object;
 
     }
 
