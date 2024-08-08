@@ -7,11 +7,20 @@ use SimpleXMLElement;
 use Apility\Visma\Facades\VismaClient;
 use Exception;
 
+/**
+ * @phpstan-type VismaFilter object{
+ *   field: string,
+ *   compare: string,
+ *   operator?: 'AND'|'OR',
+ *   leftParenthesis?: true|false|'1',
+ *   rightParenthesis?: true|false|'1',
+ * }
+ */
 trait VismaDefaultsTrait {
     /**
      * List objects from Visma
      *
-     * @param array $filters
+     * @param array<VismaFilter> $filters
      * @param bool $debug
      * @return Collection|string
      * @throws Exception
@@ -73,14 +82,27 @@ trait VismaDefaultsTrait {
             $item = $filter->addChild($filterItem->field);
             $item->addAttribute('Compare', $filterItem->compare);
             $item->addAttribute('Value1', $filterItem->value);
-            $item->addAttribute('Operator', $filterItem->operator);
+            if ($filterItem->operator ?? false) {
+                $item->addAttribute('Operator', $filterItem->operator);
+            }
+            if ($filterItem->leftParenthesis ?? false) {
+                $item->addAttribute('LeftParenthesis', '1');
+            }
+            if ($filterItem->rightParenthesis ?? false) {
+                $item->addAttribute('RightParenthesis', '1');
+            }
         }
 
         if($debug) {
             return VismaClient::debug($payload);
         }
 
-        return static::convertList(VismaClient::post(static::$endpoint . '/' . static::$listUrl , $payload));
+        return static::convertList(
+            VismaClient::post(
+                static::$endpoint . '/' . static::$listUrl,
+                $payload,
+            )
+        );
 
     }
 
@@ -163,9 +185,9 @@ trait VismaDefaultsTrait {
             return VismaClient::debug($payload);
         }
 
-	if ($returnList) {
-	    return static::convertList(VismaClient::post(static::$endpoint . '/' . static::$getUrl , $payload));
-	}
+        if ($returnList) {
+            return static::convertList(VismaClient::post(static::$endpoint . '/' . static::$getUrl , $payload));
+        }
 
         return static::convertSingle(VismaClient::post(static::$endpoint . '/' . static::$getUrl , $payload));
 
@@ -279,7 +301,7 @@ trait VismaDefaultsTrait {
         }
 
         $header = $object->addChild(static::$xmlHeader);
-		$header->addChild(static::$primaryKey, $primaryKey);
+        $header->addChild(static::$primaryKey, $primaryKey);
 
         foreach($header as $key => $value) {
             $header->addChild($key, $value);
