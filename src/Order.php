@@ -4,7 +4,6 @@ namespace Apility\Visma;
 
 class Order
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**
@@ -13,7 +12,7 @@ class Order
      * @var array
      */
     protected static $ObjectChildren = [];
-    
+
     /**
      * Default xml head children
      *
@@ -33,8 +32,8 @@ class Order
      * @var array
      */
     protected static $LineChildren = [
-        'LineNo' => 'int', 
-        'Description' => 'string', 
+        'LineNo' => 'int',
+        'Description' => 'string',
         'Quantity' => 'float',
         'ProductNo' => 'string',
         'PriceInCurrency' => 'float',
@@ -58,5 +57,4 @@ class Order
     protected static $getUrl = 'getOrder';
     protected static $postUrl = 'postOrder';
     protected static $putUrl = 'putOrder';
-
 }

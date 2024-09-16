@@ -4,7 +4,6 @@ namespace Apility\Visma;
 
 class VoucherBatch
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**

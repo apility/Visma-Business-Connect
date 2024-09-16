@@ -4,7 +4,6 @@ namespace Apility\Visma;
 
 class Text
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**
@@ -48,5 +47,4 @@ class Text
     protected static $getUrl = false;
     protected static $postUrl = false;
     protected static $putUrl = false;
-
 }

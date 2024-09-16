@@ -4,7 +4,6 @@ namespace Apility\Visma;
 
 class CustomerContact
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**
@@ -48,5 +47,4 @@ class CustomerContact
     protected static $getUrl = 'getCustomerContact';
     protected static $postUrl = 'postCustomerContact';
     protected static $putUrl = 'PutCustomerContact';
-
 }
