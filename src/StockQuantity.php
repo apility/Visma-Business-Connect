@@ -2,10 +2,8 @@
 
 namespace Apility\Visma;
 
-
 class StockQuantity
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**
@@ -53,5 +51,4 @@ class StockQuantity
     protected static $getUrl = 'getStockQuantity';
     protected static $postUrl = false;
     protected static $putUrl = false;
-
 }

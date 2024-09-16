@@ -4,7 +4,6 @@ namespace Apility\Visma;
 
 class Invoice
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**
@@ -55,5 +54,4 @@ class Invoice
     protected static $getUrl = false;
     protected static $postUrl = false;
     protected static $putUrl = false;
-
 }

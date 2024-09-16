@@ -4,7 +4,6 @@ namespace Apility\Visma;
 
 class Project
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**
@@ -51,5 +50,4 @@ class Project
     protected static $postUrl = 'postCostUnit';
     protected static $putUrl = 'putCostUnit';
     protected static $costUnitNumber = '2';
-
 }

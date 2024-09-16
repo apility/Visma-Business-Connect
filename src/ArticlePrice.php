@@ -2,10 +2,8 @@
 
 namespace Apility\Visma;
 
-
 class ArticlePrice
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**
@@ -52,5 +50,4 @@ class ArticlePrice
     protected static $getUrl = 'getArticlePrice';
     protected static $postUrl = false;
     protected static $putUrl = false;
-
 }

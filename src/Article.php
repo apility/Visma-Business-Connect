@@ -2,10 +2,8 @@
 
 namespace Apility\Visma;
 
-
 class Article
 {
-
     use Traits\VismaDefaultsTrait;
 
     /**
@@ -50,5 +48,4 @@ class Article
     protected static $getUrl = 'getArticle';
     protected static $postUrl = 'postArticle';
     protected static $putUrl = 'putArticle';
-
 }
