@@ -13,10 +13,17 @@ use Exception;
 /**
  * @phpstan-type VismaFilter object{
  *   field: string,
- *   compare: string,
+ *   compare: 'GreaterThanOrEqualTo'
+ *     | 'LessThanOrEqualTo'
+ *     | 'EqualTo'
+ *     | 'NotEqualTo'
+ *     | 'GreaterThan'
+ *     | 'LessThan'
+ *     | 'IntegerBitON'
+ *     | 'IntegerBitOFF',
  *   operator?: 'AND'|'OR',
- *   leftParenthesis?: true|false|'1',
- *   rightParenthesis?: true|false|'1',
+ *   leftParenthesis?: int|true|false,
+ *   rightParenthesis?: int|true|false,
  * }
  */
 trait VismaDefaultsTrait
@@ -89,10 +96,16 @@ trait VismaDefaultsTrait
                 $item->addAttribute('Operator', $filterItem->operator);
             }
             if ($filterItem->leftParenthesis ?? false) {
-                $item->addAttribute('LeftParenthesis', '1');
+                $item->addAttribute(
+                    'LeftParenthesis',
+                    intval($filterItem->leftParenthesis),
+                );
             }
             if ($filterItem->rightParenthesis ?? false) {
-                $item->addAttribute('RightParenthesis', '1');
+                $item->addAttribute(
+                    'RightParenthesis',
+                    intval($filterItem->rightParenthesis),
+                );
             }
         }
 
@@ -197,7 +210,7 @@ trait VismaDefaultsTrait
      * @param array $objectItems
      * @param array $headerItems
      * @param array $lineItems
-     * @param array $filters
+     * @param array<VismaFilter> $filters
      * @param bool $debug
      * @return object|string
      * @throws GuzzleException
@@ -261,7 +274,21 @@ trait VismaDefaultsTrait
                 $item = $filter->addChild($filterItem->field);
                 $item->addAttribute('Compare', $filterItem->compare);
                 $item->addAttribute('Value1', $filterItem->value);
-                $item->addAttribute('Operator', $filterItem->operator);
+                if ($filterItem->operator ?? false) {
+                    $item->addAttribute('Operator', $filterItem->operator);
+                }
+                if ($filterItem->leftParenthesis ?? false) {
+                    $item->addAttribute(
+                        'LeftParenthesis',
+                        intval($filterItem->leftParenthesis),
+                    );
+                }
+                if ($filterItem->rightParenthesis ?? false) {
+                    $item->addAttribute(
+                        'RightParenthesis',
+                        intval($filterItem->rightParenthesis),
+                    );
+                }
             }
         }
 
