@@ -2,6 +2,9 @@
 
 namespace Apility\Visma\Traits;
 
+use Apility\Visma\Exceptions\VismaBadRequestException;
+use Apility\Visma\Exceptions\VismaErrorException;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 use SimpleXMLElement;
 use Apility\Visma\Facades\VismaClient;
@@ -24,6 +27,9 @@ trait VismaDefaultsTrait
      * @param array<VismaFilter> $filters
      * @param bool $debug
      * @return Collection|string
+     * @throws GuzzleException
+     * @throws VismaErrorException
+     * @throws VismaBadRequestException
      * @throws Exception
      */
     public static function list(array $filters, bool $debug = false)
@@ -109,6 +115,9 @@ trait VismaDefaultsTrait
      * @param bool $returnList
      * @param bool $debug
      * @return object|string
+     * @throws GuzzleException
+     * @throws VismaErrorException
+     * @throws VismaBadRequestException
      * @throws Exception
      */
     public static function get(string $primaryKey, bool $returnList = false, bool $debug = false)
@@ -191,6 +200,9 @@ trait VismaDefaultsTrait
      * @param array $filters
      * @param bool $debug
      * @return object|string
+     * @throws GuzzleException
+     * @throws VismaErrorException
+     * @throws VismaBadRequestException
      * @throws Exception
      */
     public static function create(
@@ -268,6 +280,9 @@ trait VismaDefaultsTrait
      * @param array $_2 Unused parameter
      * @param bool $debug
      * @return object|string
+     * @throws GuzzleException
+     * @throws VismaErrorException
+     * @throws VismaBadRequestException
      * @throws Exception
      */
     public static function update(string $primaryKey, array $_1, array $_2, bool $debug = false)
