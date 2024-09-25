@@ -6,27 +6,29 @@
         {
             "name": "Olav Øyen",
             "email": "olav@apility.no"
+        },
+        {
+            "name": "Cathrine Vaage",
+            "email": "cathrine@apility.no"
         }
     ],
     "require": {
-        "netflex/api": "^4.0"
-    },
-    "require-dev": {
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^8.0",
+        "guzzlehttp/guzzle": "^7.9"
     },
     "autoload": {
         "psr-4": {
-            "Apility\\Visma\\":"src"
+            "Apility\\Visma\\": "src"
         }
     },
     "extra": {
         "laravel": {
-          "providers": [
-            "Apility\\Visma\\Providers\\VismaBusinessServiceProvider"
-          ],
-          "aliases": {
-            "VismaClient": "Apility\\Visma\\Facades\\VismaClient"
-          }
+            "providers": [
+                "Apility\\Visma\\Providers\\VismaBusinessServiceProvider"
+            ],
+            "aliases": {
+                "VismaClient": "Apility\\Visma\\Facades\\VismaClient"
+            }
         }
     }
 }
