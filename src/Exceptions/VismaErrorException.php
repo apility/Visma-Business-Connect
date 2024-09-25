@@ -5,12 +5,10 @@ namespace Apility\Visma\Exceptions;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class VismaErrorException extends \Exception
+class VismaErrorException extends VismaRequestException
 {
     public int $status;
     public string $method;
-    public RequestInterface $request;
-    public ResponseInterface $response;
 
     /**
      * @param string $message
@@ -26,10 +24,8 @@ class VismaErrorException extends \Exception
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        parent::__construct($message, $status);
+        parent::__construct($message, $status, $request, $response);
         $this->status = $status;
         $this->method = $method;
-        $this->request = $request;
-        $this->response = $response;
     }
 }
