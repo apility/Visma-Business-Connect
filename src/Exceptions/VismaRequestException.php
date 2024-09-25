@@ -5,27 +5,25 @@ namespace Apility\Visma\Exceptions;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class VismaBadRequestException extends VismaRequestException
+class VismaRequestException extends \Exception
 {
-    public int $messageId;
-    public string $messageDetail;
+    public RequestInterface $request;
+    public ResponseInterface $response;
 
     /**
      * @param string $message
-     * @param int $messageId
-     * @param string $messageDetail
+     * @param int $code
      * @param RequestInterface $request
      * @param ResponseInterface $response
      */
     public function __construct(
         string $message,
-        int $messageId,
-        string $messageDetail,
+        int $code,
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        parent::__construct($message, $messageId, $request, $response);
-        $this->messageId = $messageId;
-        $this->messageDetail = $messageDetail;
+        parent::__construct($message, $code);
+        $this->request = $request;
+        $this->response = $response;
     }
 }
