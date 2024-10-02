@@ -43,7 +43,7 @@ class Text
     protected static $xmlLineWrapper = false;
     protected static $xmlLine = false;
     protected static $endpoint = 'Extension.svc';
-    protected static $listUrl = 'Text';
+    protected static $listUrl = 'GetTableValue';
     protected static $getUrl = false;
     protected static $postUrl = false;
     protected static $putUrl = false;
