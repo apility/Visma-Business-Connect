@@ -303,8 +303,9 @@ trait VismaDefaultsTrait
      * Update object from Visma
      *
      * @param string $primaryKey
-     * @param array $_1 Unused parameter
-     * @param array $_2 Unused parameter
+     * @param array $objectItems
+     * @param array $headerItems
+     * @param array $lineItems
      * @param bool $debug
      * @return object|string
      * @throws GuzzleException
@@ -312,8 +313,13 @@ trait VismaDefaultsTrait
      * @throws VismaBadRequestException
      * @throws Exception
      */
-    public static function update(string $primaryKey, array $_1, array $_2, bool $debug = false)
-    {
+    public static function update(
+        string $primaryKey,
+        array $objectItems = [],
+        array $headerItems = [],
+        array $lineItems = [],
+        bool $debug = false
+    ) {
         if (!static::$putUrl) {
             throw new Exception("Method not implemented", 500);
         }
@@ -326,18 +332,37 @@ trait VismaDefaultsTrait
             $object = $payload->addChild(static::$xmlObject);
         }
 
-        $header = $object->addChild(static::$xmlHeader);
-        $header->addChild(static::$primaryKey, $primaryKey);
-
-        foreach ($header as $key => $value) {
-            $header->addChild($key, $value);
+        if (static::$primaryKeyPlacement === 'object') {
+            $object->addChild(static::$primaryKey, $primaryKey);
         }
 
-        $lines = $object->addChild(static::$xmlLineWrapper);
-        foreach ($lines as $line) {
-            $line = $lines->addChild(static::$xmlLine);
-            foreach ($line as $key => $value) {
-                $line->addChild($key, $value);
+        foreach ($objectItems as $key => $value) {
+            if (static::$primaryKeyPlacement !== 'object' || $key !== static::$primaryKey) {
+                $object->addChild($key, e($value));
+            }
+        }
+
+        if (static::$xmlHeader && count(static::$HeaderChildren)) {
+            $header = $object->addChild(static::$xmlHeader);
+
+            if (static::$primaryKeyPlacement === 'header') {
+                $header->addChild(static::$primaryKey, $primaryKey);
+            }
+
+            foreach ($headerItems as $key => $value) {
+                if (static::$primaryKeyPlacement !== 'header' || $key !== static::$primaryKey) {
+                    $header->addChild($key, e($value));
+                }
+            }
+        }
+
+        if (static::$xmlLineWrapper && static::$xmlLine) {
+            $lines = $object->addChild(static::$xmlLineWrapper);
+            foreach ($lineItems as $lineItem) {
+                $line = $lines->addChild(static::$xmlLine);
+                foreach ($lineItem as $key => $value) {
+                    $line->addChild($key, e($value));
+                }
             }
         }
 
@@ -356,7 +381,8 @@ trait VismaDefaultsTrait
      */
     private static function convertList(SimpleXMLElement $xml): Collection
     {
-        $collection = collect([]);
+        $collection = collect();
+
         if (static::$xmlObjectWrapper) {
             foreach ($xml->{static::$xmlObjectWrapper}->{static::$xmlObject} as $item) {
                 $collection->add(static::convert(json_decode(json_encode((array) $item))));
